@@ -37,6 +37,7 @@ resource "aws_instance" "bastion_host" {
   key_name               = aws_key_pair.deployer.key_name
   vpc_security_group_ids = [aws_security_group.allow_user_bastion.id]
   subnet_id              = module.vpc.public_subnets[0]
+  iam_instance_profile   = aws_iam_instance_profile.bastion_profile.name
   user_data              = file("${path.module}/bastion_user_data.sh")
   tags = {
     Name = "fendi-Observability-Bastion-Host"
